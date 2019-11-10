@@ -1,35 +1,38 @@
 package ga.softogi.moviecatalogue.ui.detail;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import ga.softogi.moviecatalogue.data.FilmEntity;
-import ga.softogi.moviecatalogue.utils.DataDummy;
+import ga.softogi.moviecatalogue.data.source.FilmRepository;
 
 public class DetailFilmViewModel extends ViewModel {
     private FilmEntity mFilm;
-    private String filmTitle;
+    private String movieTitle;
+    private String tvTitle;
+    private FilmRepository filmRepository;
 
-    public FilmEntity getFilm() {
-        //mengambil movie
-        for (int i = 0; i < DataDummy.generateDummyMovie().size(); i++) {
-            FilmEntity filmEntity = DataDummy.generateDummyMovie().get(i);
-            if (filmEntity.getTitle().equals(filmTitle)) {
-                mFilm = filmEntity;
-            }
-        }
-
-        //mengambil tv show
-        for (int i = 0; i < DataDummy.generateDummyTv().size(); i++) {
-            FilmEntity filmEntity = DataDummy.generateDummyTv().get(i);
-            if (filmEntity.getTitle().equals(filmTitle)) {
-                mFilm = filmEntity;
-            }
-        }
-        return mFilm;
+    public DetailFilmViewModel(FilmRepository mFilmRepository) {
+        this.filmRepository = mFilmRepository;
     }
 
-    //set judul tv show untuk diambil di method getFilm()
-    public void setFilmTitle(String filmTitle) {
-        this.filmTitle = filmTitle;
+    public LiveData<FilmEntity> getMovie() {
+        //mengambil movie
+        return filmRepository.getDetailMovie(movieTitle);
+    }
+
+    public LiveData<FilmEntity> getTv() {
+        //mengambil tv
+        return filmRepository.getDetailTv(tvTitle);
+    }
+
+    //set judul movie untuk diambil di method getMovie()
+    void setMovieTitle(String movieTitle) {
+        this.movieTitle = movieTitle;
+    }
+
+    //set judul tv show untuk diambil di method getTv()
+    void setTvTitle(String tvTitle) {
+        this.tvTitle = tvTitle;
     }
 }
