@@ -1,7 +1,9 @@
 <resources>
-    <string name="app_name">MovieCatalogue</string>
+    <string name="app_name">Movie Catalogue</string>
     <string name="movie">Movie</string>
     <string name="tv">TV</string>
+    <string name="fav_movie">Favorite Movie</string>
+    <string name="fav_tv">Favorite TV</string>
     <string name="title">Title</string>
     <string name="release">Release: </string>
     <string name="overview">Overview</string>
@@ -10,4 +12,13 @@
     <string name="share">Share</string>
     <string name="backdrop">Backdrop</string>
     <string name="poster">Poster</string>
+    <string name="favorite">Favorite</string>
+    <string name="night_mode_on_off">Night Mode ON/OFF</string>
+    <string name="rating">Rating</string>
+    <string name="star1">Star 1</string>
+    <string name="star2">Star 2</string>
+    <string name="star3">Star 3</string>
+    <string name="star4">Star 4</string>
+    <string name="star5">Star 5</string>
+    <string name="no_rating">No Rating</string>
 </resources>

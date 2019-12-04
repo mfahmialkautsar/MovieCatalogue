@@ -3,4 +3,13 @@
     <color name="colorPrimary">#4285F4</color>
     <color name="colorPrimaryDark">#1E3D70</color>
     <color name="colorAccent">#34AB53</color>
+
+    <color name="colorBackground">#fcfcfc</color>
+    <color name="colorCardBackground">@color/cardview_light_background</color>
+    <color name="colorTextPrimary">@android:color/primary_text_light</color>
+    <color name="colorText">@android:color/tertiary_text_light</color>
+    <color name="colorShareButton">@color/cardview_dark_background</color>
+    <color name="colorBottomNavActive">@color/colorPrimary</color>
+    <color name="colorBottomNavInactive">@android:color/tab_indicator_text</color>
+    <color name="colorBottomNavBackground">@color/cardview_light_background</color>
 </resources>

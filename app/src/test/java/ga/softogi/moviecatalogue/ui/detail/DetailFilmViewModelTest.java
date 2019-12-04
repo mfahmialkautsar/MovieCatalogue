@@ -8,9 +8,11 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-import ga.softogi.moviecatalogue.data.FilmEntity;
 import ga.softogi.moviecatalogue.data.source.FilmRepository;
+import ga.softogi.moviecatalogue.data.source.local.entity.MovieEntity;
+import ga.softogi.moviecatalogue.data.source.local.entity.TvEntity;
 import ga.softogi.moviecatalogue.utils.FakeDataDummy;
+import ga.softogi.moviecatalogue.vo.Resource;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -23,43 +25,45 @@ public class DetailFilmViewModelTest {
 
     private DetailFilmViewModel viewModel;
     private FilmRepository filmRepository = mock(FilmRepository.class);
-    private FilmEntity dummyMovie = FakeDataDummy.generateDummyMovie().get(0);
-    private FilmEntity dummyTv = FakeDataDummy.generateDummyTv().get(0);
-    private String movieTitle = dummyMovie.getTitle();
-    private String tvTitle = dummyTv.getTitle();
+    private MovieEntity dummyMovie = FakeDataDummy.generateDummyMovie().get(0);
+    private TvEntity dummyTv = FakeDataDummy.generateDummyTv().get(0);
+    private String movieId = dummyMovie.getMovieId();
+    private String tvId = dummyTv.getTvId();
 
     @Before
     public void setUp() {
         viewModel = new DetailFilmViewModel(filmRepository);
-        viewModel.setMovieTitle(movieTitle);
-        viewModel.setTvTitle(tvTitle);
+        viewModel.setMovieId(movieId);
+        viewModel.setTvId(tvId);
     }
 
     @Test
     public void getDetailMovie() {
-        MutableLiveData<FilmEntity> movieEntities = new MutableLiveData<>();
-        movieEntities.setValue(dummyMovie);
+        Resource<MovieEntity> resource = Resource.success(FakeDataDummy.generateDummyDetailMovie(dummyMovie, true));
+        MutableLiveData<Resource<MovieEntity>> movieEntities = new MutableLiveData<>();
+        movieEntities.setValue(resource);
 
-        when(filmRepository.getDetailMovie(movieTitle)).thenReturn(movieEntities);
+        when(filmRepository.getMovieById(movieId)).thenReturn(movieEntities);
 
-        Observer<FilmEntity> observer = mock(Observer.class);
+        //noinspection unchecked
+        Observer<Resource<MovieEntity>> observer = mock(Observer.class);
+        viewModel.liveMovie.observeForever(observer);
 
-        viewModel.getMovie().observeForever(observer);
-
-        verify(observer).onChanged(dummyMovie);
+        verify(observer).onChanged(resource);
     }
 
     @Test
     public void getDetailTv() {
-        MutableLiveData<FilmEntity> tvEntities = new MutableLiveData<>();
-        tvEntities.setValue(dummyTv);
+        Resource<TvEntity> resource = Resource.success(FakeDataDummy.generateDummyDetailTv(dummyTv, true));
+        MutableLiveData<Resource<TvEntity>> tvEntities = new MutableLiveData<>();
+        tvEntities.setValue(resource);
 
-        when(filmRepository.getDetailTv(tvTitle)).thenReturn(tvEntities);
+        when(filmRepository.getTvById(tvId)).thenReturn(tvEntities);
 
-        Observer<FilmEntity> observer = mock(Observer.class);
+        //noinspection unchecked
+        Observer<Resource<TvEntity>> observer = mock(Observer.class);
+        viewModel.liveTv.observeForever(observer);
 
-        viewModel.getTv().observeForever(observer);
-
-        verify(observer).onChanged(dummyTv);
+        verify(observer).onChanged(resource);
     }
 }

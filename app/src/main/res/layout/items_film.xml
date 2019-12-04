@@ -7,6 +7,7 @@
     android:layout_marginStart="8dp"
     android:layout_marginEnd="8dp"
     android:orientation="vertical"
+    app:cardBackgroundColor="@color/colorCardBackground"
     app:cardCornerRadius="4dp"
     app:cardElevation="4dp"
     app:cardMaxElevation="4dp"
@@ -15,7 +16,26 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/item_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/colorBackground">
+
+        <TextView
+            android:id="@+id/tv_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#6D000000"
+            android:drawableStart="@drawable/ic_star_16dp"
+            android:elevation="8dp"
+            android:gravity="center"
+            android:paddingStart="4dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="6dp"
+            android:paddingBottom="3dp"
+            android:text="@string/rating"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/iv_poster"
@@ -38,7 +58,7 @@
             android:background="@android:color/transparent"
             android:contentDescription="@string/share"
             android:src="@drawable/ic_share_black_24dp"
-            android:tint="@color/cardview_dark_background"
+            android:tint="@color/colorShareButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="PrivateResource" />
@@ -53,7 +73,7 @@
             android:ellipsize="end"
             android:gravity="start"
             android:maxLines="2"
-            android:textColor="@android:color/black"
+            android:textColor="@color/colorTextPrimary"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@id/btn_share"
@@ -68,6 +88,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="32dp"
             android:ellipsize="end"
+            android:textColor="@color/colorText"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/tv_title"

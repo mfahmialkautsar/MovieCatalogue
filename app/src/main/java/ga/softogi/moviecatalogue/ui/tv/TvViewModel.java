@@ -5,8 +5,9 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 
-import ga.softogi.moviecatalogue.data.FilmEntity;
 import ga.softogi.moviecatalogue.data.source.FilmRepository;
+import ga.softogi.moviecatalogue.data.source.local.entity.TvEntity;
+import ga.softogi.moviecatalogue.vo.Resource;
 
 public class TvViewModel extends ViewModel {
     private FilmRepository filmRepository;
@@ -15,7 +16,7 @@ public class TvViewModel extends ViewModel {
         this.filmRepository = mFilmRepository;
     }
 
-    LiveData<List<FilmEntity>> getTvs() {
+    LiveData<Resource<List<TvEntity>>> getTvs() {
         return filmRepository.getAllTvs();
     }
 }

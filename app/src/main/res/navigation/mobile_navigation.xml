@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@+id/navigation_fav_movie">
+
+    <fragment
+        android:id="@+id/navigation_fav_movie"
+        android:name="ga.softogi.moviecatalogue.ui.favorite.movie.FavMovieFragment"
+        android:label="@string/fav_movie"
+        tools:layout="@layout/fragment_fav_movie" />
+
+    <fragment
+        android:id="@+id/navigation_fav_tv"
+        android:name="ga.softogi.moviecatalogue.ui.favorite.tv.FavTvFragment"
+        android:label="@string/fav_tv"
+        tools:layout="@layout/fragment_fav_tv" />
+</navigation>

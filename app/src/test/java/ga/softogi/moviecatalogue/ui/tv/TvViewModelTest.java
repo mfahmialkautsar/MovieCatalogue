@@ -8,12 +8,12 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import ga.softogi.moviecatalogue.data.FilmEntity;
 import ga.softogi.moviecatalogue.data.source.FilmRepository;
+import ga.softogi.moviecatalogue.data.source.local.entity.TvEntity;
 import ga.softogi.moviecatalogue.utils.FakeDataDummy;
+import ga.softogi.moviecatalogue.vo.Resource;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -34,14 +34,15 @@ public class TvViewModelTest {
 
     @Test
     public void getTvs() {
-        ArrayList<FilmEntity> dummyTv = FakeDataDummy.generateDummyTv();
+        Resource<List<TvEntity>> dummyTv = Resource.success(FakeDataDummy.generateDummyTv());
 
-        MutableLiveData<List<FilmEntity>> tvs = new MutableLiveData<>();
+        MutableLiveData<Resource<List<TvEntity>>> tvs = new MutableLiveData<>();
         tvs.setValue(dummyTv);
 
         when(filmRepository.getAllTvs()).thenReturn(tvs);
 
-        Observer<List<FilmEntity>> observer = mock(Observer.class);
+        //noinspection unchecked
+        Observer<Resource<List<TvEntity>>> observer = mock(Observer.class);
 
         viewModel.getTvs().observeForever(observer);
 

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,13 +16,12 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import ga.softogi.moviecatalogue.ContentShareCallback;
 import ga.softogi.moviecatalogue.R;
-import ga.softogi.moviecatalogue.adapter.FilmAdapter;
-import ga.softogi.moviecatalogue.data.FilmEntity;
+import ga.softogi.moviecatalogue.data.source.local.entity.TvEntity;
+import ga.softogi.moviecatalogue.utils.TvShareCallback;
 import ga.softogi.moviecatalogue.viewmodel.ViewModelFactory;
 
-public class TvFragment extends Fragment implements ContentShareCallback {
+public class TvFragment extends Fragment implements TvShareCallback {
     private RecyclerView rvTv;
     private ProgressBar progressBar;
 
@@ -34,7 +34,7 @@ public class TvFragment extends Fragment implements ContentShareCallback {
 
     @NonNull
     private static TvViewModel obtainViewModel(FragmentActivity activity) {
-        ViewModelFactory factory = ViewModelFactory.getInstance();
+        ViewModelFactory factory = ViewModelFactory.getInstance(activity.getApplication());
         return ViewModelProviders.of(activity, factory).get(TvViewModel.class);
     }
 
@@ -57,11 +57,23 @@ public class TvFragment extends Fragment implements ContentShareCallback {
         if (getActivity() != null) {
             TvViewModel viewModel = obtainViewModel(getActivity());
 
-            FilmAdapter adapter = new FilmAdapter(getActivity(), this);
+            TvAdapter adapter = new TvAdapter(getActivity(), this);
             viewModel.getTvs().observe(this, tv -> {
-                progressBar.setVisibility(View.GONE);
-                adapter.setListContent(tv);
-                adapter.notifyDataSetChanged();
+                if (tv != null) {
+                    switch (tv.status) {
+                        case LOADING:
+                            progressBar.setVisibility(View.VISIBLE);
+                            break;
+                        case SUCCESS:
+                            progressBar.setVisibility(View.GONE);
+                            adapter.setListTv(tv.data);
+                            adapter.notifyDataSetChanged();
+                            break;
+                        case ERROR:
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(getContext(), "ERROR", Toast.LENGTH_SHORT).show();
+                    }
+                }
             });
 
             rvTv.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -71,7 +83,7 @@ public class TvFragment extends Fragment implements ContentShareCallback {
     }
 
     @Override
-    public void onShareClick(FilmEntity filmEntity) {
+    public void onShareClick(TvEntity filmEntity) {
         if (getActivity() != null) {
             String mimeType = "text/plain";
             String chooserTitle = "Share this TV Show NOW!";

@@ -1,8 +1,11 @@
 package ga.softogi.moviecatalogue.data.source.remote;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
 import java.util.List;
 
-import ga.softogi.moviecatalogue.data.source.response.FilmResponse;
+import ga.softogi.moviecatalogue.data.source.remote.response.FilmResponse;
 import ga.softogi.moviecatalogue.utils.DataDummy;
 
 public class RemoteRepository {
@@ -16,15 +19,24 @@ public class RemoteRepository {
         return INSTANCE;
     }
 
-    public void getAllMovies(LoadFilmsCallback callback) {
-        callback.onAllFilmsReceived(DataDummy.generateDummyMovie());
+    public LiveData<ApiResponse<List<FilmResponse>>> getAllMoviesAsLiveData() {
+        MutableLiveData<ApiResponse<List<FilmResponse>>> resultMovie = new MutableLiveData<>();
+
+        resultMovie.setValue(ApiResponse.success(DataDummy.generateDummyMovie()));
+        return resultMovie;
     }
 
-    public void getAllTvs(LoadFilmsCallback callback) {
-        callback.onAllFilmsReceived(DataDummy.generateDummyTv());
+    public LiveData<ApiResponse<List<FilmResponse>>> getAllTvsAsLiveData() {
+        MutableLiveData<ApiResponse<List<FilmResponse>>> resultTv = new MutableLiveData<>();
+
+        resultTv.setValue(ApiResponse.success(DataDummy.generateDummyTv()));
+        return resultTv;
     }
 
-    public interface LoadFilmsCallback {
-        void onAllFilmsReceived(List<FilmResponse> filmResponses);
+    public LiveData<ApiResponse<FilmResponse>> getMovieById(String id) {
+        MutableLiveData<ApiResponse<FilmResponse>> result = new MutableLiveData<>();
+
+        result.setValue(ApiResponse.success(DataDummy.generateDummyMovie().get(Integer.parseInt(id.substring(1)) - 1)));
+        return result;
     }
 }

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,15 +16,14 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import ga.softogi.moviecatalogue.ContentShareCallback;
 import ga.softogi.moviecatalogue.R;
-import ga.softogi.moviecatalogue.adapter.FilmAdapter;
-import ga.softogi.moviecatalogue.data.FilmEntity;
+import ga.softogi.moviecatalogue.data.source.local.entity.MovieEntity;
+import ga.softogi.moviecatalogue.utils.MovieShareCallback;
 import ga.softogi.moviecatalogue.viewmodel.ViewModelFactory;
 
-public class MovieFragment extends Fragment implements ContentShareCallback {
+public class MovieFragment extends Fragment implements MovieShareCallback {
     private RecyclerView rvMovie;
-    private FilmAdapter adapter;
+    private MovieAdapter adapter;
     private ProgressBar progressBar;
 
     public MovieFragment() {
@@ -35,7 +35,7 @@ public class MovieFragment extends Fragment implements ContentShareCallback {
 
     @NonNull
     private static MovieViewModel obtainViewModel(FragmentActivity activity) {
-        ViewModelFactory factory = ViewModelFactory.getInstance();
+        ViewModelFactory factory = ViewModelFactory.getInstance(activity.getApplication());
         return ViewModelProviders.of(activity, factory).get(MovieViewModel.class);
     }
 
@@ -59,11 +59,23 @@ public class MovieFragment extends Fragment implements ContentShareCallback {
         if (getActivity() != null) {
             MovieViewModel viewModel = obtainViewModel(getActivity());
 
-            adapter = new FilmAdapter(getActivity(), this);
+            adapter = new MovieAdapter(getActivity(), this);
             viewModel.getMovies().observe(this, movie -> {
-                progressBar.setVisibility(View.GONE);
-                adapter.setListContent(movie);
-                adapter.notifyDataSetChanged();
+                if (movie != null) {
+                    switch (movie.status) {
+                        case LOADING:
+                            progressBar.setVisibility(View.VISIBLE);
+                            break;
+                        case SUCCESS:
+                            progressBar.setVisibility(View.GONE);
+                            adapter.setListTv(movie.data);
+                            adapter.notifyDataSetChanged();
+                            break;
+                        case ERROR:
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(getContext(), "ERROR", Toast.LENGTH_SHORT).show();
+                    }
+                }
             });
 
             rvMovie.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -73,7 +85,7 @@ public class MovieFragment extends Fragment implements ContentShareCallback {
     }
 
     @Override
-    public void onShareClick(FilmEntity filmEntity) {
+    public void onShareClick(MovieEntity movieEntity) {
         if (getActivity() != null) {
             String mimeType = "text/plain";
             String chooserTitle = "Share this Movie NOW!";
@@ -81,7 +93,7 @@ public class MovieFragment extends Fragment implements ContentShareCallback {
                     .from(getActivity())
                     .setType(mimeType)
                     .setChooserTitle(chooserTitle)
-                    .setText(filmEntity.getTitle())
+                    .setText(movieEntity.getTitle())
                     .startChooser();
         }
     }

@@ -6,8 +6,8 @@ import androidx.test.rule.ActivityTestRule;
 import org.junit.Rule;
 import org.junit.Test;
 
-import ga.softogi.moviecatalogue.HomeActivity;
 import ga.softogi.moviecatalogue.R;
+import ga.softogi.moviecatalogue.ui.home.HomeActivity;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -25,7 +25,10 @@ public class MovieTest {
     public void toDetailActivityTest() {
         onView(withId(R.id.rv_movie)).check(matches(isDisplayed()));
         onView(withId(R.id.rv_movie)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+
         onView(withId(R.id.tv_title)).check(matches(isDisplayed()));
+        //this is why I prefer to use local data instead of on this project, the data is static and easier to be tested.
+        // No need to check the data manually first
         onView(withId(R.id.tv_title)).check(matches(withText("Fantastic Beasts: The Crimes of Grindelwald")));
     }
 }

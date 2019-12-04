@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     android:fitsSystemWindows="true"
     tools:context=".ui.detail.DetailFilmActivity">
 
@@ -52,6 +53,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/colorBackground"
             android:paddingTop="@dimen/activity_vertical_margin">
 
             <ImageView
@@ -74,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:textColor="@android:color/black"
+                android:textColor="@color/colorTextPrimary"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -88,6 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="@string/release"
+                android:textColor="@color/colorText"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="@id/tv_title"
                 app:layout_constraintStart_toStartOf="@id/tv_title"
@@ -98,7 +101,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:textColor="@android:color/black"
+                android:textColor="@color/colorTextPrimary"
                 android:textSize="13sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@id/release"
@@ -111,6 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:text="@string/genre"
+                android:textColor="@color/colorText"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="@id/tv_title"
                 app:layout_constraintTop_toBottomOf="@id/tv_title" />
@@ -119,7 +123,7 @@
                 android:id="@+id/tv_genre"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
+                android:textColor="@color/colorTextPrimary"
                 android:textSize="13sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@id/tv_title"
@@ -133,6 +137,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="@string/runtime"
+                android:textColor="@color/colorText"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="@id/tv_title"
                 app:layout_constraintTop_toBottomOf="@id/tv_genre" />
@@ -141,7 +146,7 @@
                 android:id="@+id/tv_runtime"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
+                android:textColor="@color/colorTextPrimary"
                 android:textSize="13sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@id/tv_title"
@@ -160,6 +165,109 @@
                 android:backgroundTint="@android:color/darker_gray"
                 app:layout_constraintTop_toBottomOf="@id/iv_poster" />
 
+            <View
+                android:id="@+id/view_star"
+                android:layout_width="200dp"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/line" />
+
+            <TextView
+                android:id="@+id/tv_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg"
+                android:elevation="4dp"
+                android:gravity="center"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:paddingBottom="1dp"
+                android:text="@string/rating"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@id/iv_star1"
+                app:layout_constraintStart_toStartOf="@id/view_star"
+                app:layout_constraintTop_toBottomOf="@id/view_star" />
+
+            <ImageView
+                android:id="@+id/iv_star1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="0dp"
+                android:contentDescription="@string/star1"
+                android:src="@drawable/ic_star_border_24dp"
+                android:tint="#FFD700"
+                app:layout_constraintBottom_toBottomOf="@id/tv_rating"
+                app:layout_constraintEnd_toStartOf="@id/iv_star2"
+                app:layout_constraintStart_toEndOf="@id/tv_rating"
+                app:layout_constraintTop_toTopOf="@id/tv_rating" />
+
+            <ImageView
+                android:id="@+id/iv_star2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="0dp"
+                android:contentDescription="@string/star2"
+                android:src="@drawable/ic_star_border_24dp"
+                android:tint="#FFD700"
+                app:layout_constraintBottom_toBottomOf="@id/iv_star1"
+                app:layout_constraintEnd_toStartOf="@id/iv_star3"
+                app:layout_constraintStart_toEndOf="@id/iv_star1"
+                app:layout_constraintTop_toTopOf="@id/iv_star1" />
+
+            <ImageView
+                android:id="@+id/iv_star3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="0dp"
+                android:contentDescription="@string/star3"
+                android:src="@drawable/ic_star_border_24dp"
+                android:tint="#FFD700"
+                app:layout_constraintBottom_toBottomOf="@id/iv_star2"
+                app:layout_constraintEnd_toStartOf="@id/iv_star4"
+                app:layout_constraintStart_toEndOf="@id/iv_star2"
+                app:layout_constraintTop_toTopOf="@id/iv_star2" />
+
+            <ImageView
+                android:id="@+id/iv_star4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="0dp"
+                android:contentDescription="@string/star4"
+                android:src="@drawable/ic_star_border_24dp"
+                android:tint="#FFD700"
+                app:layout_constraintBottom_toBottomOf="@id/iv_star3"
+                app:layout_constraintEnd_toStartOf="@id/iv_star5"
+                app:layout_constraintStart_toEndOf="@id/iv_star3"
+                app:layout_constraintTop_toTopOf="@id/iv_star3" />
+
+            <ImageView
+                android:id="@+id/iv_star5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/star5"
+                android:src="@drawable/ic_star_border_24dp"
+                android:tint="#FFD700"
+                app:layout_constraintBottom_toBottomOf="@id/iv_star4"
+                app:layout_constraintEnd_toEndOf="@id/view_star"
+                app:layout_constraintStart_toEndOf="@id/iv_star4"
+                app:layout_constraintTop_toTopOf="@id/iv_star4" />
+
+            <View
+                android:id="@+id/line_bot"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/bg"
+                android:backgroundTint="@android:color/darker_gray"
+                app:layout_constraintTop_toBottomOf="@id/tv_rating" />
+
             <TextView
                 android:id="@+id/overview"
                 android:layout_width="0dp"
@@ -168,10 +276,11 @@
                 android:layout_marginTop="14dp"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:text="@string/overview"
+                android:textColor="@color/colorText"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/line" />
+                app:layout_constraintTop_toBottomOf="@id/line_bot" />
 
             <TextView
                 android:id="@+id/tv_overview"
@@ -180,7 +289,7 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:lineSpacingMultiplier="1"
-                android:textColor="@android:color/black"
+                android:textColor="@color/colorTextPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/overview"
                 app:layout_constraintStart_toStartOf="@id/overview"
