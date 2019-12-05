@@ -65,8 +65,8 @@ public class DetailFilmActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
         }
 
         viewModel = obtainViewModel(this);
@@ -205,13 +205,17 @@ public class DetailFilmActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.action_favorite) {
-            if (isMovieId) {
-                viewModel.setMovieFavorite();
-            } else if (isTvId) {
-                viewModel.setTvFavorite();
-            }
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_favorite:
+                if (isMovieId) {
+                    viewModel.setMovieFavorite();
+                } else if (isTvId) {
+                    viewModel.setTvFavorite();
+                }
+                break;
+            case android.R.id.home:
+                onBackPressed();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
