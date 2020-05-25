@@ -6,13 +6,13 @@
 
     <fragment
         android:id="@+id/navigation_fav_movie"
-        android:name="ga.softogi.moviecatalogue.ui.favorite.movie.FavMovieFragment"
+        android:name="mfahmialkautsar.moviecatalogue.ui.favorite.movie.FavMovieFragment"
         android:label="@string/fav_movie"
         tools:layout="@layout/fragment_fav_movie" />
 
     <fragment
         android:id="@+id/navigation_fav_tv"
-        android:name="ga.softogi.moviecatalogue.ui.favorite.tv.FavTvFragment"
+        android:name="mfahmialkautsar.moviecatalogue.ui.favorite.tv.FavTvFragment"
         android:label="@string/fav_tv"
         tools:layout="@layout/fragment_fav_tv" />
 </navigation>

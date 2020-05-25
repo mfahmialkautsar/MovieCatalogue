@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="ga.softogi.moviecatalogue">
+    package="mfahmialkautsar.moviecatalogue">
 
     <application tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".testing.SingleFragmentActivity" />
+        <activity android:name="mfahmialkautsar.moviecatalogue.testing.SingleFragmentActivity" />
     </application>
 </manifest>
